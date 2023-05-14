@@ -23,26 +23,6 @@
                         <form class="form-outline mb-4 text-left" action="php/cadastrar.php" method="post">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-12">
-                                    <div id="cnpjCampo" class="form-group">
-                                        <label class="form-label" for="cnpj">CNPJ</label>
-                                        <div class="form-group__input">
-                                            <input class="form-control form-control-md" id="cnpj" name="cnpj" value="" placeholder="00.000.000/0000-00" style="color: #1E1E1E;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label">Razao Social</label>
-                                        <div class="form-group__input">
-                                            <input class="form-control form-control-md" id="social" type="text" name="razaoSocial" placeholder="" required="required" style="color: #1E1E1E;">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-group">
                                         <label class="gogon-wc__form-label">Nome Fantasia</label>
                                         <div class="form-group__input">
@@ -53,8 +33,25 @@
                             </div>
 
                             <div class="row">
-
-                                <div class="col-lg-4 col-md-4 col-12">
+                                <div class="col-lg-12 col-md-12 col-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Razao Social</label>
+                                        <div class="form-group__input">
+                                            <input class="form-control form-control-md" id="social" type="text" name="razaoSocial" placeholder="" required="required" style="color: #1E1E1E;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div id="cnpjCampo" class="form-group">
+                                        <label class="form-label" for="cnpj">CNPJ</label>
+                                        <div class="form-group__input">
+                                            <input class="form-control form-control-md" id="cnpj" name="cnpj" value="" placeholder="00.000.000/0000-00" style="color: #1E1E1E;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-group">
                                         <label class="form-label">Contato</label>
                                         <div class="form-group__input">
@@ -62,8 +59,10 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-lg-8 col-md-8 col-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-12">
                                     <div class="form-group">
                                         <label class="form-label">Email</label>
                                         <div class="form-group__input">
@@ -71,7 +70,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="row">
@@ -263,12 +261,6 @@
 
 		// Remove todos os caracteres que não são dígitos do CNPJ
 		cnpj = cnpj.replace(/\D/g, '');
-
-		// Verifica se o CNPJ tem 14 dígitos
-		if (cnpj.length !== 14) {
-			alert("O CNPJ informado é inválido!");
-			return;
-		}
 
 		// Faz a requisição AJAX para a API pública da Speedio
 		$.ajax({

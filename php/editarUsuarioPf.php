@@ -27,8 +27,4 @@
         $_SESSION['Info'] = "Erro ao Editar o usuario";
         header("Location: ../editarPerfilPF");
     }
-
-
-
-
 ?>

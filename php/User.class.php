@@ -191,7 +191,7 @@ class User{
     //SALVA O USUARIO DO TIPO JURIDICO
     public function salvarNoBancoPJ($nome_fantasia, $razao_social, $cnpj, $contato, $cod_autenticacao){
         $sql = new PDO("mysql:host=localhost;dbname=gogon", "root", "");
-        $stmt = $sql->prepare("INSERT INTO tb_cliente_pj (nome_fantasia, razão_social, cnpj, contato, cod_autenticacao) VALUES (:nome_fantasia, :razao_social, :cnpj, :contato, :cod_autenticacao)");
+        $stmt = $sql->prepare("INSERT INTO tb_cliente_pj (nome_fantasia, razao_social, cnpj, contato, cod_autenticacao) VALUES (:nome_fantasia, :razao_social, :cnpj, :contato, :cod_autenticacao)");
 
         $stmt->bindParam(':nome_fantasia', $nome_fantasia);
         $stmt->bindParam(':razao_social', $razao_social);
@@ -225,19 +225,18 @@ class User{
         }
     }
     //EDITAR O USUARIO DO TIPO JURIDICO
-    public function editarPerfilPJ($cod_cliente_pj, $nome_fantasia, $razao_social, $cnpj, $contato) {
-            $sql = new Sql();
+    public function editarPerfilPJ($cod_cliente_pj, $nome_fantasia, $razao_social, $contato, $cnpj, $email, $senha) {
+            $sql = new PDO("mysql:host=localhost;dbname=gogon", "root", "");
             // Prepara a query SQL
-            $stmt = $sql->prepare("UPDATE tb_cliente_pj SET nome_fantasia = :nome_fantasia, razão_social = :razao_social, cnpj = :cnpj, contato = :contato WHERE cod_cliente_pj = :cod_cliente_pj");
+            $stmt = $sql->prepare("UPDATE tb_cliente_pj SET nome_fantasia = :nome_fantasia, razao_social = :razao_social, cnpj = :cnpj, contato = :contato WHERE cod_cliente_pj = :cod_cliente_pj");
     
             $stmt->bindParam(':cod_cliente_pj', $cod_cliente_pj);
             $stmt->bindParam(':nome_fantasia', $nome_fantasia);
             $stmt->bindParam(':razao_social', $razao_social);
-            $stmt->bindParam(':cpf', $cnpj);
+            $stmt->bindParam(':cnpj', $cnpj);
             $stmt->bindParam(':contato', $contato);
     
             $resultado_cliente = $stmt->execute();
-    
             $stmt = $sql->prepare("UPDATE tb_autenticacao SET email = :email, senha = :senha WHERE cod_autenticacao = (SELECT cod_autenticacao FROM tb_cliente_pj WHERE cod_cliente_pj = :cod_cliente_pj)");
     
             // Define os valores dos parâmetros com bindParam

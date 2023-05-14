@@ -41,7 +41,7 @@
                         <?php }?>
 
                         <li class="nav-item">
-                           <a class="nav-link" href="laptop.html">Montar Computador</a>
+                           <a class="nav-link" href="escolherProcessador">Montar Computador</a>
                         </li>
 
                         <!--<li class="nav-item d_none">
@@ -50,7 +50,7 @@
 
                         <?php if(@$_SESSION["logado"] == "true"){?>
                            <li class="nav-item d_none">
-                              <a class="nav-link" href="editarPerfilPF"><span class="material-symbols-outlined" style="font-size:32px;">
+                              <a class="nav-link" href=<?php echo @$_SESSION["Tipo"] == 1 ? "editarPerfilPF" : "editarPerfilPJ"?>><span class="material-symbols-outlined" style="font-size:32px;">
                                  account_circle
                               </span></a>
                         </li>
