@@ -5,7 +5,7 @@
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
                         <div class="logo-purple">
-                            Criar conta PJ
+                            Criar conta Pessoa Juridica
                             <br><br>
                         </div>
                         <?php
@@ -103,7 +103,7 @@
                                     <p class="d-flex mb-4">Ja Possui conta? &nbsp<a href="login">Logar</a></p>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-12">
-                                    <p class="d-flex mb-4">criar conta como PF &nbsp<a href="criarContaPF">Criar Conta PF</a></p>
+                                    <p class="d-flex mb-4">Clique aqui para criar uma conta PF &nbsp<a href="criarContaPF">Criar Conta</a></p>
                                 </div>
                             </div>
                         </form>

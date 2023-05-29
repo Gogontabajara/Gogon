@@ -74,7 +74,11 @@ if ($Url[0] == "index") {
   if (file_exists(REQUIRE_PATH . '/' . $Url[0] . '.php')):
     require REQUIRE_PATH . '/' . $Url[0] . '.php';
   else:
-    require REQUIRE_PATH . '/404.php';
+    if (file_exists(REQUIRE_PATH .'/'.'montarComputador'.'/' . $Url[0] . '.php')):
+      require REQUIRE_PATH .'/'.'montarComputador'.'/' . $Url[0] . '.php';
+    else:
+      require REQUIRE_PATH . '/404.php';
+    endif;
   endif;
   ///footer
   require REQUIRE_PATH . "/inc/footer.php";

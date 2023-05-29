@@ -1,5 +1,5 @@
 <?php
-if (isset($_SESSION['Cod_cliente'])) {
+if (isset($_SESSION['Cod_Autenticacao'])) {
     $sql = new PDO("mysql:host=localhost;dbname=gogon", "root", "");
     $stmt = $sql->query("SELECT * FROM tb_cliente_pj where cod_cliente_pj = '$_SESSION[Cod_cliente]'");
     $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -26,9 +26,17 @@ else {
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
                         <div class="logo-purple">
-                            Editar Perfil PJ
+                            Editar Perfil
                             <br><br>
                         </div>
+
+                        <div class="alert alert-success alert-dismissible fade show" id="erro" style="display: none;" role="alert">
+                            <div id="msg"></div>
+                            <button type="button" id="closeEnd" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
                         <?php
                         if (isset($_SESSION["Info"]) && isset($_SESSION["Erro"])) { ?>
                             <div class="alert alert-<?php echo @$_SESSION['Type']; ?> alert-dismissible fade show" role="alert">
@@ -128,7 +136,7 @@ else {
                         <!-- Botao Para Adicionar Endereço -->
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-12">
-                                <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#endereco">Endereço Teste</button>
+                                <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#endereco">Endereço</button>
                             </div>
                         </div>
                     </div>
@@ -151,53 +159,59 @@ else {
     $bairro = @$res[0]['bairro'];
     $cidade = @$res[0]['cidade'];
     $uf = @$res[0]['uf'];
+    $registros = @count(@$res);
+    if ($registros > 0) {
+        $idform = "form-editar-endereco";
+    }else{
+        $idform = "form-salvar-endereco";
+    }
 ?>
 <div class="modal fade" id="endereco" tabindex="-1" role="dialog" aria-labelledby="Endereço" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="TituloModalCentralizado">Endereço TESTE</h5>
+                <h5 class="modal-title" id="TituloModalCentralizado">Endereço</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Sign in Form -->
-                <form class="form-outline mb-4 text-left" id="form-salvar-endereco" method="post">
+                <form class="form-outline mb-4 text-left" id="<?php echo $idform;?>" method="post">
                     <div class="form-row">
                         <div class="form-group col-md-5">
                             <label for="rua">Rua</label>
-                            <input type="text" class="form-control" id="rua" placeholder="Rua Exemplo" value="<?php echo @$rua ?>">
+                            <input type="text" class="form-control" id="rua" placeholder="Rua Exemplo" required="required" value="<?php echo @$rua ?>">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="numero">Numero</label>
-                            <input type="text" class="form-control" id="numero" value="<?php echo @$numero ?>">
+                            <input type="text" class="form-control" id="numero" required="required" value="<?php echo @$numero ?>">
                         </div>
                         <div class="form-group col-md-5">
                             <label for="complemento">Complemento</label>
-                            <input type="text" class="form-control" id="complemento" value="<?php echo @$complemento ?>">
+                            <input type="text" class="form-control" id="complemento" required="required" value="<?php echo @$complemento ?>">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="cep">Cep</label>
-                            <input type="text" class="form-control" id="cep" value="<?php echo @$cep?>">
+                            <input type="text" class="form-control" id="cep" required="required" value="<?php echo @$cep?>">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="bairro">Bairro</label>
-                            <input type="text" class="form-control" id="bairro" value="<?php echo @$bairro ?>">
+                            <input type="text" class="form-control" id="bairro" required="required" value="<?php echo @$bairro ?>">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="cidade">Cidade</label>
-                            <input type="text" class="form-control" id="cidade" value="<?php echo @$cidade ?>">
+                            <input type="text" class="form-control" id="cidade" required="required" value="<?php echo @$cidade ?>">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="uf">Estado</label>
-                            <input type="text" class="form-control" id="uf" value="<?php echo @$uf ?>">
+                            <input type="text" class="form-control" id="uf" required="required" value="<?php echo @$uf ?>">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="submit" class="btn btn-primary btn-md btn-block">Salvar</button>
                 </form>
                 <!-- End Sign in Form -->
             </div>
@@ -371,40 +385,6 @@ return true;
 
 }
 
-    // Parte para salvar o endereço do usuario utilizando AJAX
-    $(document).ready(function() {
-    $('#form-salvar-endereco').submit(function(e) {
-        e.preventDefault(); // previne o comportamento padrão de submit do formulário
-        
-        // Recupera os dados do formulário
-        var cep = $('#cep').val();
-        var rua = $('#rua').val();
-        var numero = $('#numero').val();
-        var complemento = $('#complemento').val();
-        var bairro = $('#bairro').val();
-        var cidade = $('#cidade').val();
-        var uf = $('#uf').val();
-        // Envia os dados do formulário via AJAX
-        $.ajax({
-            url: 'php/cadastrarEndereco.php',
-            method: 'POST',
-            data: {
-                cep: cep,
-                rua: rua,
-                numero: numero,
-                complemento: complemento,
-                bairro: bairro,
-                cidade: cidade,
-                uf: uf
-            },
-            success: function(response) {
-                // Exibe a mensagem de sucesso ou de erro para o usuário
-                $('#msg').text(response);
-            }
-        });
-    });
-});
-
     $(document).ready(function() {
         // Quando o campo CNPJ perde o foco, executa a função de consulta
         $("#cnpj").blur(function() {
@@ -431,4 +411,102 @@ return true;
             });
         });
     });
+
+
+// Parte para salvar o endereço do usuario utilizando AJAX
+$(document).ready(function() {
+    $('#form-salvar-endereco').submit(function(e) {
+        e.preventDefault(); // previne o comportamento padrão de submit do formulário
+        
+        // Recupera os dados do formulário
+        var cep = $('#cep').val();
+        cep = cep.replace(/[^0-9]/g, '');
+        var rua = $('#rua').val();
+        var numero = $('#numero').val();
+        var complemento = $('#complemento').val();
+        var bairro = $('#bairro').val();
+        var cidade = $('#cidade').val();
+        var uf = $('#uf').val();
+        console.log(cep);
+        // Envia os dados do formulário via AJAX
+        $.ajax({
+            url: 'php/cadastrarEndereco.php',
+            method: 'POST',
+            data: {
+                cep: cep,
+                rua: rua,
+                numero: numero,
+                complemento: complemento,
+                bairro: bairro,
+                cidade: cidade,
+                uf: uf
+            },
+            success: function(response) {
+            // Exibe a mensagem de sucesso ou de erro para o usuário
+            $('#msg').text('Endereço cadastrado com sucesso!');
+            $('#endereco').modal('hide');
+            $('.modal-backdrop').remove();
+            document.getElementById('erro').style.display = 'block';
+          },
+          error: function() {
+            $('#msg').text('Ocorreu um erro durante a requisição.');
+            $('#endereco').modal('hide');
+            $('.modal-backdrop').remove();
+            document.getElementById('erro').style.display = 'block';
+            // Você pode adicionar classes CSS ou modificar o estilo do elemento aqui se necessário
+          }
+        });
+    });
+});
+
+// Parte para editar o endereço do usuario utilizando AJAX
+$(document).ready(function() {
+    $('#form-editar-endereco').submit(function(e) {
+        e.preventDefault(); // previne o comportamento padrão de submit do formulário
+        
+        // Recupera os dados do formulário
+        var cep = $('#cep').val();
+        cep = cep.replace(/[^0-9]/g, '');
+        var rua = $('#rua').val();
+        var numero = $('#numero').val();
+        var complemento = $('#complemento').val();
+        var bairro = $('#bairro').val();
+        var cidade = $('#cidade').val();
+        var uf = $('#uf').val();
+        var id = <?php if (isset($cod_endereco)){echo @$cod_endereco; }else {echo 0; } ?>;
+        // Envia os dados do formulário via AJAX
+        $.ajax({
+            url: 'php/editarEndereco.php',
+            method: 'POST',
+            data: {
+                id: id,
+                cep: cep,
+                rua: rua,
+                numero: numero,
+                complemento: complemento,
+                bairro: bairro,
+                cidade: cidade,
+                uf: uf
+            },
+            success: function(response) {
+            // Exibe a mensagem de sucesso ou de erro para o usuário
+            $('#msg').text('Endereço editado com sucesso!');
+            $('#endereco').modal('hide');
+            $('.modal-backdrop').remove();
+            document.getElementById('erro').style.display = 'block';
+          },
+          error: function() {
+            $('#msg').text('Ocorreu um erro durante a requisição.');
+            $('#endereco').modal('hide');
+            $('.modal-backdrop').remove();
+            document.getElementById('erro').style.display = 'block';
+            // Você pode adicionar classes CSS ou modificar o estilo do elemento aqui se necessário
+          }
+        });
+    });
+});
+
+document.getElementById('closeEnd').addEventListener('click', function() {
+  document.getElementById('erro').style.display = 'none';
+});
 </script>
