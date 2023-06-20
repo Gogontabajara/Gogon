@@ -18,7 +18,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#sobrenos">Sobre nós</a>
+                    <a class="nav-link active" aria-current="page" href="index#equipe">Sobre nós</a>
                 </li>
 
                 <li class="nav-item">
@@ -34,7 +34,7 @@
 
                 <?php if (@$_SESSION["logado"] == "true" && @$_SESSION["Tipo"] == 2) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="cadastrarProduto">Cadastrar Produtos</a>
+                        <a class="nav-link" href="produtos">Produtos</a>
                     </li>
                 <?php } ?>
 
@@ -46,7 +46,7 @@
                 <?php if (@$_SESSION["logado"] == "true") { ?>
                     <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="btn nav-link-btn" href=<?php echo @$_SESSION["Tipo"] == 1 ? "editarPerfilPF" : "editarPerfilPJ"?>>
+                            <a class="btn nav-link-btn" href=<?= @$_SESSION["Tipo"] == 1 ? "editarPerfilPF" : "editarPerfilPJ"?>>
                                 Editar Perfil
                             </a>
                         </li>

@@ -26,4 +26,11 @@ spl_autoload_register(function($class_name){
         require_once($filename);
     }
 });
+
+spl_autoload_register(function($class_name){
+    $filename = "php/".$class_name.".class.php";
+    if(file_exists($filename)){
+        require_once($filename);
+    }
+  });
 ?>

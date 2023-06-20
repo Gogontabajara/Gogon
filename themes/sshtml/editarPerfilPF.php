@@ -193,7 +193,7 @@ if (isset($_SESSION['Cod_Autenticacao'])) {
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label for="cep">Cep</label>
+                            <label for="cep">CEP</label>
                             <input type="text" class="form-control" id="cep" required="required" value="<?php echo @$cep?>">
                         </div>
                         <div class="form-group col-md-3">

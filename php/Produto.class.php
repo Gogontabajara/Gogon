@@ -3,49 +3,48 @@
 
     class Produto {
         
-        public function salvarProdutos($marca, $cod_categoria, $modelo, $nome, $quantidade, $descricao, $preco, $foto) {
-            $sql = new Sql();
-            $data_insercao = date("Y-m-d H:i:s");
-            $stmt = $sql->prepare("INSERT INTO tb_pecas (marca, cod_categoria, modelo, nome, data_insercao, quantidade, descricao, preco, foto) VALUES (:marca, :cod_categoria, :modelo, :nome, :data_insercao, :quantidade, :descricao, :preco, :foto)");
-            $stmt->bindParam(':marca', $marca);
-            $stmt->bindParam(':cod_categoria', $cod_categoria);
-            $stmt->bindParam(':modelo', $modelo);
-            $stmt->bindParam(':nome', $nome);
-            $stmt->bindParam(':data_insercao', $data_insercao);
+        public function verificarProduto($codProduto, $Cod_cliente){
+            $sql = new PDO("mysql:host=localhost;dbname=gogon", "root", "");
+            $sqlpeca = $sql->prepare("SELECT cod_pecas FROM tb_produtosclientepj WHERE cod_pecas = :cod_produto AND cod_cliente_pj = :cod_cliente_pj");
+            $sqlpeca->bindParam(':cod_produto', $codProduto);
+            $sqlpeca->bindParam(':cod_cliente_pj', $Cod_cliente);
+            $sqlpeca -> execute();
+            $res = $sqlpeca->fetchAll(PDO::FETCH_ASSOC);
+            $registros = @count($res);
+            if ($registros > 0) {
+                $_SESSION['Erro'] = "Produto já existe!!!";
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        public function salvarProdutos($Cod_cliente, $codProduto, $quantidade, $preco) {
+            $sql = new PDO("mysql:host=localhost;dbname=gogon", "root", "");
+
+            if($this->verificarProduto($codProduto, $Cod_cliente)){
+                return false;
+            }else{
+            $stmt = $sql->prepare("INSERT INTO tb_produtosclientepj (cod_cliente_pj, cod_pecas, quantidade, valor) VALUES (:Cod_cliente, :codigoPeca, :quantidade, :preco)");
+            $stmt->bindParam(':Cod_cliente', $Cod_cliente);
+            $stmt->bindParam(':codigoPeca', $codProduto);
             $stmt->bindParam(':quantidade', $quantidade);
-            $stmt->bindParam(':descricao', $descricao);
             $stmt->bindParam(':preco', $preco);
-            $stmt->bindParam(':foto', $foto);
             if ($stmt->execute()) {
                 return true;
             } else {
                 return false;
             }
         }
-    
-        public function lerProdutos($id) {
-            $sql = new Sql();
-            $stmt = $sql->prepare("SELECT * FROM tb_pecas WHERE id = :id");
-            $stmt->bindParam(':id', $id);
-            if ($stmt->execute()) {
-                return $stmt->fetch();
-            } else {
-                return false;
-            }
         }
     
-        public function atualizarProdutos($id, $marca, $cod_categoria, $modelo, $nome, $quantidade, $descricao, $preco, $foto) {
-            $sql = new  Sql();
-            $stmt = $sql->prepare("UPDATE tb_pecas SET marca = :marca, cod_categoria = :cod_categoria, modelo = :modelo, nome = :nome, quantidade = :quantidade, descricao = :descricao, preco = :preco, foto = :foto WHERE id = :id");
-            $stmt->bindParam(':id', $id);
-            $stmt->bindParam(':marca', $marca);
-            $stmt->bindParam(':cod_categoria', $cod_categoria);
-            $stmt->bindParam(':modelo', $modelo);
-            $stmt->bindParam(':nome', $nome);
+        public function editarProdutos($codProduto, $quantidade, $preco, $cod_produtosClientePj) {
+            $sql = new PDO("mysql:host=localhost;dbname=gogon", "root", "");
+            $stmt = $sql->prepare("UPDATE tb_produtosclientepj SET cod_pecas = :cod_pecas, quantidade = :quantidade, valor = :valor WHERE cod_produtosClientePj = :cod_produtosClientePj");
+            $stmt->bindParam(':cod_produtosClientePj', $cod_produtosClientePj);
+            $stmt->bindParam(':cod_pecas', $codProduto);
             $stmt->bindParam(':quantidade', $quantidade);
-            $stmt->bindParam(':descricao', $descricao);
-            $stmt->bindParam(':preco', $preco);
-            $stmt->bindParam(':foto', $foto);
+            $stmt->bindParam(':valor', $preco);
             if ($stmt->execute()) {
                 return true;
             } else {
@@ -53,23 +52,12 @@
             }
         }
     
-        public function apagarProdutos($id) {
-            $sql = new Sql();
-            $stmt = $sql->prepare("DELETE FROM tb_pecas WHERE id = :id");
-            $stmt->bindParam(':id', $id);
+        public function apagarProdutos($cod_produtosClientePj) {
+            $sql = new PDO("mysql:host=localhost;dbname=gogon", "root", "");
+            $stmt = $sql->prepare("DELETE FROM tb_produtosClientePj WHERE cod_produtosClientePj = :cod_produtosClientePj");
+            $stmt->bindParam(':cod_produtosClientePj', $cod_produtosClientePj);
             if ($stmt->execute()) {
                 return true;
-            } else {
-                return false;
-            }
-        }
-    
-        public function pesquisarProdutos($termoBusca) {
-            $sql = new Sql();
-            $stmt = $sql->prepare("SELECT * FROM tb_pecas WHERE nome LIKE :termoBusca OR descricao LIKE :termoBusca");
-            $stmt->bindValue(':termoBusca', '%'.$termoBusca.'%');
-            if ($stmt->execute()) {
-                return $stmt->fetchAll();
             } else {
                 return false;
             }

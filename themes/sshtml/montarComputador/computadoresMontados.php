@@ -1,11 +1,5 @@
 <?php
-$_SESSION['maquina']['processador'] = @$_POST['processador'];
-spl_autoload_register(function($class_name){
-    $filename = "php/".$class_name.".class.php";
-    if(file_exists($filename)){
-        require_once($filename);
-    }
-  });
+// Codigo para carregar os computadores do usuario logado
 if (isset($_SESSION['Cod_Autenticacao'])) {
     $sql = new PDO("mysql:host=localhost;dbname=gogon", "root", "");
     $stmt = $sql->query("SELECT * FROM tb_computadores_montado where cod_cliente = '$_SESSION[Cod_Autenticacao]'");
@@ -15,70 +9,72 @@ if (isset($_SESSION['Cod_Autenticacao'])) {
     header("Location: ../login");
 }
 ?>
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="box-white">
+    <h1 class="h1-purple" style="text-align: center;">Computadores Montados</h1>
+    <div class="container">
 
-<?php
-foreach ($res as $id):
-    $resultados = $computador->carregarComputadores($id['cod_computador']);
-    foreach ($resultados as $resultado):
-        $carregar = $computador->loadbyid($resultado['cod_processador']);
-        $precoProcessador = $computador->buscarMediaValor($resultado['cod_processador']);
-        echo $processador = $carregar[0]['nome'] . ' ' . 'R$ '. $precoProcessador;
-        echo "<br>";
-        $carregar = $computador->loadbyid($resultado['cod_placamae']);
-        $precoPlacamae = $computador->buscarMediaValor($resultado['cod_placamae']);
-        echo $placamae = $carregar[0]['nome']  . ' ' . 'R$ '. $precoPlacamae;
-        echo "<br>";
-
-        $carregar = $computador->loadbyid($resultado['cod_memoria1']);
-        $precoMemoria1 = $computador->buscarMediaValor($resultado['cod_memoria1']);
-        $memoria1 = @$carregar[0]['nome'];
-        if(isset($memoria1)){
-            echo $memoria1   . ' ' . 'R$ '. $precoMemoria1 . "<br>";
+        <?php
+        //Codigo para verificar e colocar na tela caso aconteça um erro no sistema
+        if (isset($_SESSION["Info"]) || isset($_SESSION["Erro"])) { ?>
+            <div class="alert alert-<?php echo @$_SESSION['Type']; ?> alert-dismissible fade show" role="alert">
+                <strong>
+                    <?php echo @$_SESSION["Info"]; ?>
+                </strong>
+                <?php echo @$_SESSION["Erro"]; ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <?php unset($_SESSION["Info"]);
+            unset($_SESSION["Erro"]);
+            unset($_SESSION['Type']);
+        } ?>
+        <div class="row">
+        <?php foreach ($res as $id): ?>
+            <div class="col-lg-6">
+                <div class="box-part-purple-pc text-center">
+                    <h4 class="text-white">Computador </h4>
+                    <?php
+                        $produtos = $computador->carregarComputadores($id['cod_computador']);
+                        $valorTotal = 0;
+                        foreach ($produtos as $produto): ?>
+                            <div class="row text-white text-left">
+                                <div class="col-lg-9 text-white">
+                                    <?= $produto['nome'] ?>
+                                </div>
+                                <div class="col-lg-3">
+                                    <?= "R$ " . $computador->buscarMediaValor($produto['cod_produto']) ?>
+                                    <?php $valorTotal += $computador->buscarMediaValor($produto['cod_produto']); ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                        <br>
+                        <div class="row text-purple text-center"
+                            style="background-color:white; padding:10px 5px;margin:px 5px;">
+                            <div class="col-lg-12">
+                                Valor Total &nbsp; &nbsp;
+                                <?= "R$ " . $valorTotal ?>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xl-6 col-md-12 mb-4">
+                                <a href="php/apagarComputador.php?cod=<?= $id['cod_computador'] ?>"><button
+                                        class="btn btn-danger btn-md btn-block btn-lg" type="submit">Apagar o
+                                        computador</button></a>
+                            </div>
+                            <div class="col-xl-6 col-md-12 mb-4">
+                                <a href="detalhesComputador?cod=<?= $id['cod_computador'] ?> "><button class="btn btn-success btn-md btn-block btn-lg"
+                                        type="submit">Detalhes</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <?php endforeach;
+        if (!@$produtos) {
+           include_once("themes/sshtml/vazio.php");
         }
-        $carregar = $computador->loadbyid($resultado['cod_memoria2']);
-        $precoMemoria2 = $computador->buscarMediaValor($resultado['cod_memoria2']);
-        $memoria2 = @$carregar[0]['nome'];
-        if(isset($memoria2)){
-            echo $memoria2   . ' ' . 'R$ '. $precoMemoria2 . "<br>";
-        }
-        $carregar = $computador->loadbyid($resultado['cod_memoria3']);
-        $precoMemoria3 = $computador->buscarMediaValor($resultado['cod_memoria3']);
-        $memoria3 = @$carregar[0]['nome'];
-        if(isset($memoria3)){
-            echo $memoria3   . ' ' . 'R$ '. $precoMemoria3 . "<br>";
-        }
-        $carregar = $computador->loadbyid($resultado['cod_memoria4']);
-        $precoMemoria4 = $computador->buscarMediaValor($resultado['cod_memoria4']);
-        $memoria4 = @$carregar[0]['nome'];
-        if(isset($memoria4)){
-            echo $memoria4   . ' ' . 'R$ '. $precoMemoria4 . "<br>";
-        }
-
-        $carregar = $computador->loadbyid($resultado['cod_placadevideo']);
-        $precoPlacaDeVideo = $computador->buscarMediaValor($resultado['cod_placadevideo']);
-        echo $placadevideo = $carregar[0]['nome'] . ' ' . 'R$ '. $precoPlacaDeVideo;
-        echo "<br>";
-        $carregar = $computador->loadbyid($resultado['cod_armazenamento']);
-        $precoArmazenamento = $computador->buscarMediaValor($resultado['cod_armazenamento']);
-        echo $armazenamento = $carregar[0]['nome'] . ' ' . 'R$ '. $precoArmazenamento;
-        echo "<br>";
-        $carregar = $computador->loadbyid($resultado['cod_gabinete']);
-        $precoGabinete = $computador->buscarMediaValor($resultado['cod_gabinete']);
-        echo $gabinete = $carregar[0]['nome']  . ' ' . 'R$ '. $precoGabinete;
-        echo "<br>";
-        $carregar = $computador->loadbyid($resultado['cod_fonte']);
-        $precoFonte = $computador->buscarMediaValor($resultado['cod_fonte']);
-        echo $fonte = $carregar[0]['nome'] . ' ' . 'R$ '. $precoFonte;
-        echo "<br>";
-        echo 'Valor Total: R$ '. $id['valor_total'];
-        echo "<br>";
-        echo "<a href='php/apagarComputador.php?cod={$resultado['cod_computador']}'>Apagar</a>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-    endforeach;
-endforeach;
-?>
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
-<a href="index">Voltar ao inicio</a>
+        ?>
+        </div>
+    </div>
+</div>

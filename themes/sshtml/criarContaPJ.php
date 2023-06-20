@@ -86,7 +86,7 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label class="form-label">Senha</label>
+                                        <label class="form-label">Confirmar Senha</label>
                                         <div class="form-group__input">
                                             <input class="form-control form-control-md" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" id="senhaRepetida" type="senha" name="senhaRepetida" placeholder="" required="required" style="color: #1E1E1E;">
                                         </div>

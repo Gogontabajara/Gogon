@@ -1,5 +1,5 @@
 <!-- slider section -->
-<section class=" slider_section position-relative">
+<section class="slider_section position-relative">
   <div class="slider_container">
     <div class="container">
       <div class="row">
@@ -16,10 +16,8 @@
               construir sua própria máquina
             </p>
             <div class="btn-box">
-              <a href="" class="btn-1">
-                Saiba Mais
-              </a>
-              <a href="" class="btn-2">
+
+              <a href="montarComputador" class="btn-2">
                 Monte Agora
               </a>
             </div>
@@ -36,18 +34,15 @@
       <img src="img/pcbuider.webp" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="900" height="700"
         loading="lazy">
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6" >
       <h2>Conheça mais sobre projeto</h2>
 
-      <p>Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most
-        popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive
-        prebuilt components, and powerful JavaScript plugins.</p>
+      <p>      A Gogon tem a satisfação em apresentar o sistema que irá ajudar seu usuário a montar um ou mais computadores 
+        de forma facil e intuitiva, com sistema de perguntas para auxiliar o usuário com menos conhecimento, até escolher peça por peça
+      para usuários mais experiente, mas se quer algo mais direto, temos perfis prontos para uma decisão mais rapida. </p>
 
       <div class="btn-box">
-        <a href="" class="btn-1">
-          Saiba Mais
-        </a>
-        <a href="" class="btn-2">
+        <a href="montarComputador" class="btn-2">
           Monte Agora
         </a>
       </div>
@@ -58,56 +53,54 @@
 
 <div class="box">
   <h1 class="h1-white"style="text-align: center;">Formas de Montar o PC</h1>
-  <p style="text-align: center; margin:10px 250px 50px 250px; color: white;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam et velit quasi culpa sunt cupiditate atque sed nesciunt. Dolore dolores voluptatem sit non, temporibus similique tenetur velit repudiandae vero neque.</p>
+  <p style="text-align: center; margin:10px 250px 50px 250px; color: white;">Escolha o computador ideal para atender às suas
+        necessidades<br>Selecione o perfil que melhor se encaixe no seu uso.</p>
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <div class="box-part text-center">
-        <img src="img/icons/pc.png" class="d-block mx-lg-auto img-fluid" alt="pc" width="200" height="500" loading="lazy">
+        <div class="box-part-white text-center">
+        <img src="img/icons/pc-purple.png" class="d-block mx-lg-auto img-fluid" alt="pc" width="200" height="500" loading="lazy">
           <div class="title">
             <h4>Perfis Prontos</h4>
           </div>
           <div class="text">
-            <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret
-              qui ad.</span>
+            <span>Aqui, temos o prazer de apresentar três opções de computadores prontos, Esses computadores foram projetados para proporcionar o melhor desempenho para funcionalidades específicas.</span>
           </div>
-          <a href="#">Learn More</a>
+          <a href="computadoresJaProntos">Veja aqui</a>
         </div>
       </div>
 
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <div class="box-part text-center">
-        <img src="img/icons/processador.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="200" height="500" loading="lazy">
+        <div class="box-part-white text-center">
+        <img src="img/icons/processor-purple.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="200" height="500" loading="lazy">
           <div class="title">
             <h4>Peça a Peça
             </h4>
           </div>
           <div class="text">
-            <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret
-              qui ad.</span>
+            <span>Monte seu próprio computador, peça por peça. Oferecemos uma variedade de componentes para você escolher de acordo com suas necessidades e preferências.</span>
           </div>
-          <a href="#">Learn More</a>
+          <a href="escolherProcessador">Veja aqui</a>
         </div>
       </div>
 
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <div class="box-part text-center">
-        <img src="img/icons/question.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="200" height="500" loading="lazy">
+        <div class="box-part-white text-center">
+        <img src="img/icons/question-purple.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="200" height="500" loading="lazy">
           <div class="title">
             <h4>Respondendo Perguntas</h4>
           </div>
           <div class="text">
-            <span>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret
-              qui ad.</span>
+            <span>Aqui, nosso sistema fará uma série de perguntas sobre suas necessidades de uso de um computador e, com base nas suas respostas, apresentará a melhor opção para lhe atender.</span>
           </div>
-          <a href="#">Learn More</a>
+          <a href="naoSeiMontar">Veja aqui</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 <div class="py-5 team4">
-  <div class="container">
+  <div class="container" id="equipe">
     <div class="row justify-content-center mb-4">
       <div class="col-md-12 text-center">
       <h1 class="h1-purple">Conheça a Equipe de Desenvolvimento</h1>
@@ -213,4 +206,3 @@
     </div>
   </div>
 </div>
-</section>

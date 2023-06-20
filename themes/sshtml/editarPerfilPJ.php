@@ -75,7 +75,7 @@ else {
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-group">
-                                        <label class="form-label">cnpj</label>
+                                        <label class="form-label">CNPJ</label>
                                         <div class="form-group__input">
                                             <input class="form-control form-control-md" type="text" id="cnpj" name="cnpj" placeholder="" value="<?php echo @$cnpj ?>" placeholder="00.000.000/0000-00" required="required" style="color: #1E1E1E;">
                                         </div>
@@ -195,7 +195,7 @@ else {
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            <label for="cep">Cep</label>
+                            <label for="cep">CEP</label>
                             <input type="text" class="form-control" id="cep" required="required" value="<?php echo @$cep?>">
                         </div>
                         <div class="form-group col-md-3">

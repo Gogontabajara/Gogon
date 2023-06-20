@@ -47,6 +47,8 @@ if ($Url[0] == "index") {
   <link rel="stylesheet" href="css/responsive.css">
   <!-- fevicon -->
   <link rel="icon" href="img/fevicon.png" type="image/gif" />
+  <!-- Favicon -->
+  <link href="css/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <!-- Scrollbar Custom CSS -->
   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
   <!-- Tweaks for older IEs-->
